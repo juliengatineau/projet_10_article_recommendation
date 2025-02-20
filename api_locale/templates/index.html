@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendation System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div id="wrapper" class="container">
+            <div id="branding">
+                <h1>Recommendation System</h1>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <form action="/recommend" method="post">
+            <label for="userID">Enter user ID:</label>
+            <input type="text" id="userID" name="userID" value="{% if user_id %}{{ user_id }}{% endif %}">
+            <button type="submit">Get Recommendations</button>
+        </form>
+        <form action="/recommend" method="post">
+            <button type="submit" name="generate" value="true">Generate Random User ID</button>
+        </form>
+        <div class="results" id="results">
+            {% if recommendations %}
+                <h2>Recommended articles for user {{user_id}}:</h2>
+                <ul>
+                    {% for reco in recommendations %}
+                        <li>{{ reco }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
